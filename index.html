@@ -15,11 +15,14 @@
     --cream:#f5f1e9;
     --sky:#cfe3e6;
     --teal:#2f8f9c;       /* стрелы — вверх */
+    --teal-deep:#2e5a54;  /* глубокий морской — заголовки (с карты) */
     --bronze:#b08948;     /* змеи — вниз */
-    --gold:#c9a85c;
-    --line:rgba(43,58,68,.16);
-    --line-soft:rgba(43,58,68,.08);
-    --sheet:#fbf9f4;
+    --gold:#c2a263;       /* тёплое золото (с карты) */
+    --gold-soft:#d8c39a;
+    --sand:#efe6d2;       /* тёплый пергамент (с карты) */
+    --line:rgba(94,74,46,.18);
+    --line-soft:rgba(94,74,46,.09);
+    --sheet:#faf6ec;
 
     /* уровни / чакры (8 рядов снизу вверх) */
     --lv1:#c0736a; --lv2:#d2935a; --lv3:#d2b14a; --lv4:#7faf7a;
@@ -35,7 +38,7 @@
     font-family:var(--sans);
     color:var(--ink);
     background:
-      radial-gradient(120% 90% at 50% -10%, #eef4f3 0%, #e7ede9 45%, #e3e6df 100%);
+      radial-gradient(120% 90% at 50% -10%, #eef3ec 0%, #e9ebde 45%, #e6e2d4 100%);
     min-height:100vh;
     -webkit-font-smoothing:antialiased;
   }
@@ -178,7 +181,7 @@
     margin:0 auto;
     width:100%;max-width:720px;
     max-height:82vh;
-    background:var(--sheet);
+    background:linear-gradient(180deg,#fdfaf3 0%,#f5eede 100%);
     border-radius:22px 22px 0 0;
     box-shadow:0 -20px 60px -20px rgba(28,40,46,.5);
     transform:translateY(102%);
@@ -212,7 +215,7 @@
   .sheet-ru{
     font-family:var(--serif);
     font-size:clamp(20px,4.5vw,26px);
-    line-height:1.12;margin:0;color:var(--ink);
+    line-height:1.12;margin:0;color:var(--teal-deep);
   }
   .sheet-sa{
     font-size:12px;letter-spacing:.22em;text-transform:uppercase;
@@ -269,7 +272,11 @@
   }
 
   /* ===== кубик ===== */
-  .dice-wrap{position:fixed;left:18px;bottom:18px;z-index:30;display:flex;flex-direction:column;align-items:center;gap:7px;}
+  .dice-wrap{display:flex;flex-direction:column;align-items:center;gap:8px;flex:none;}
+  .history-row{display:flex;gap:30px;align-items:center;justify-content:center;max-width:920px;margin:0 auto;}
+  .history-main{flex:1;min-width:0;max-width:580px;display:flex;flex-direction:column;align-items:center;}
+  .history-main .hist-list{width:100%;}
+  @media(max-width:680px){.history-row{flex-direction:column-reverse;gap:18px;}}
   .dice{width:64px;height:64px;border:none;border-radius:15px;padding:11px;cursor:pointer;
     background:linear-gradient(145deg,#fdfaf3,#e7e0d0);
     box-shadow:0 10px 24px -8px rgba(43,58,68,.55),inset 0 1px 0 #fff,inset 0 -2px 4px rgba(43,58,68,.12);
@@ -286,9 +293,14 @@
     background:rgba(255,255,255,.72);padding:3px 10px;border-radius:99px;}
 
   /* текущая клетка-фишка */
-  .cell.is-here{box-shadow:0 0 0 2px var(--gold) inset,0 0 20px -3px var(--gold);z-index:6;}
-  .cell.is-here::before{content:"";position:absolute;top:5px;right:6px;width:9px;height:9px;border-radius:50%;
-    background:var(--gold);box-shadow:0 0 9px var(--gold);}
+  .cell.is-here{box-shadow:0 0 0 2.5px var(--gold) inset,0 0 30px -2px var(--gold);z-index:6;background:rgba(255,250,236,.62);}
+  .cell.is-here::before{content:"";position:absolute;top:3px;right:4px;width:20px;height:20px;
+    background:url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2064%2064%27%3E%3Cg%20fill%3D%27none%27%20stroke%3D%27%23b5863a%27%20stroke-width%3D%271.7%27%3E%3Ccircle%20cx%3D%2732%27%20cy%3D%2732%27%20r%3D%2722%27%2F%3E%3Ccircle%20cx%3D%2732%27%20cy%3D%2732%27%20r%3D%2711%27%2F%3E%3Cellipse%20cx%3D%2732%27%20cy%3D%2712%27%20rx%3D%273.4%27%20ry%3D%279%27%20transform%3D%27rotate%280%2032%2032%29%27%2F%3E%3Cellipse%20cx%3D%2732%27%20cy%3D%2712%27%20rx%3D%273.4%27%20ry%3D%279%27%20transform%3D%27rotate%2845%2032%2032%29%27%2F%3E%3Cellipse%20cx%3D%2732%27%20cy%3D%2712%27%20rx%3D%273.4%27%20ry%3D%279%27%20transform%3D%27rotate%2890%2032%2032%29%27%2F%3E%3Cellipse%20cx%3D%2732%27%20cy%3D%2712%27%20rx%3D%273.4%27%20ry%3D%279%27%20transform%3D%27rotate%28135%2032%2032%29%27%2F%3E%3Cellipse%20cx%3D%2732%27%20cy%3D%2712%27%20rx%3D%273.4%27%20ry%3D%279%27%20transform%3D%27rotate%28180%2032%2032%29%27%2F%3E%3Cellipse%20cx%3D%2732%27%20cy%3D%2712%27%20rx%3D%273.4%27%20ry%3D%279%27%20transform%3D%27rotate%28225%2032%2032%29%27%2F%3E%3Cellipse%20cx%3D%2732%27%20cy%3D%2712%27%20rx%3D%273.4%27%20ry%3D%279%27%20transform%3D%27rotate%28270%2032%2032%29%27%2F%3E%3Cellipse%20cx%3D%2732%27%20cy%3D%2712%27%20rx%3D%273.4%27%20ry%3D%279%27%20transform%3D%27rotate%28315%2032%2032%29%27%2F%3E%3C%2Fg%3E%3Ccircle%20cx%3D%2732%27%20cy%3D%278%27%20r%3D%271.5%27%20fill%3D%27%23b5863a%27%20transform%3D%27rotate%2822.5%2032%2032%29%27%2F%3E%3Ccircle%20cx%3D%2732%27%20cy%3D%278%27%20r%3D%271.5%27%20fill%3D%27%23b5863a%27%20transform%3D%27rotate%2867.5%2032%2032%29%27%2F%3E%3Ccircle%20cx%3D%2732%27%20cy%3D%278%27%20r%3D%271.5%27%20fill%3D%27%23b5863a%27%20transform%3D%27rotate%28112.5%2032%2032%29%27%2F%3E%3Ccircle%20cx%3D%2732%27%20cy%3D%278%27%20r%3D%271.5%27%20fill%3D%27%23b5863a%27%20transform%3D%27rotate%28157.5%2032%2032%29%27%2F%3E%3Ccircle%20cx%3D%2732%27%20cy%3D%278%27%20r%3D%271.5%27%20fill%3D%27%23b5863a%27%20transform%3D%27rotate%28202.5%2032%2032%29%27%2F%3E%3Ccircle%20cx%3D%2732%27%20cy%3D%278%27%20r%3D%271.5%27%20fill%3D%27%23b5863a%27%20transform%3D%27rotate%28247.5%2032%2032%29%27%2F%3E%3Ccircle%20cx%3D%2732%27%20cy%3D%278%27%20r%3D%271.5%27%20fill%3D%27%23b5863a%27%20transform%3D%27rotate%28292.5%2032%2032%29%27%2F%3E%3Ccircle%20cx%3D%2732%27%20cy%3D%278%27%20r%3D%271.5%27%20fill%3D%27%23b5863a%27%20transform%3D%27rotate%28337.5%2032%2032%29%27%2F%3E%3Ccircle%20cx%3D%2732%27%20cy%3D%2732%27%20r%3D%274%27%20fill%3D%27%23b5863a%27%2F%3E%3C%2Fsvg%3E") center/contain no-repeat;
+    filter:drop-shadow(0 0 4px rgba(194,162,99,.95));
+    animation:hereSpin 9s linear infinite, herePulse 2.4s ease-in-out infinite;}
+  @keyframes hereSpin{from{transform:rotate(0);}to{transform:rotate(360deg);}}
+  @keyframes herePulse{0%,100%{opacity:.82;}50%{opacity:1;}}
+  @media(prefers-reduced-motion:reduce){.cell.is-here::before{animation:none;}}
 
   /* ===== журнал пути ===== */
   .history{max-width:1000px;margin:6px auto 0;padding:0 16px;}
@@ -328,6 +340,82 @@
   #gate button:active{transform:scale(.98);}
   #gate .g-err{color:#9c2f4a;font-size:13px;min-height:18px;}
 
+  /* ===== кнопки управления (карта / помощь / интро) ===== */
+  .help-btn{position:fixed;right:20px;bottom:20px;z-index:30;border:1px solid var(--gold);
+    background:rgba(255,255,255,.9);color:#8a6d2e;font-family:inherit;font-size:16px;font-weight:600;
+    padding:14px 24px;border-radius:99px;cursor:pointer;box-shadow:0 12px 28px -12px rgba(43,58,68,.5);
+    transition:background .15s ease,transform .15s ease;}
+  .help-btn:hover{background:rgba(201,168,92,.16);transform:translateY(-1px);}
+  @media(max-width:560px){.help-btn{font-size:14px;padding:11px 18px;right:12px;bottom:12px;}}
+  .intro-btn{position:fixed;left:24px;top:24px;z-index:31;display:inline-flex;align-items:center;gap:12px;
+    border:1.5px solid var(--gold);background:rgba(255,255,255,.94);color:#8a6d2e;
+    font-family:var(--serif);font-size:26px;font-weight:400;letter-spacing:.05em;
+    padding:18px 38px;border-radius:99px;cursor:pointer;
+    box-shadow:0 16px 38px -14px rgba(43,58,68,.55);transition:background .15s ease,transform .15s ease;}
+  .intro-btn:hover{background:rgba(201,168,92,.16);transform:translateY(-2px);}
+  @media(max-width:560px){.intro-btn{font-size:16px;padding:12px 20px;left:12px;top:12px;gap:8px;border-width:1px;}}
+
+  /* ===== «Вопросы к себе» в шторке ===== */
+  .qs{margin:8px 0 6px;padding:14px 16px;border-radius:12px;background:rgba(47,143,156,.07);border-left:3px solid var(--teal);}
+  .qs h4{margin:0 0 8px;font-family:var(--serif);font-weight:400;font-size:16px;color:var(--teal-deep);letter-spacing:.03em;}
+  .qs ul{margin:0;padding-left:18px;}
+  .qs li{font-size:14.5px;line-height:1.55;color:#3c4a52;margin:0 0 7px;}
+  .qs li:last-child{margin-bottom:0;}
+
+  /* подсказка-ссылка в журнале */
+  .loglink{margin-left:6px;border:none;background:none;color:var(--teal);cursor:pointer;font:inherit;font-size:13px;text-decoration:underline;padding:0;}
+  .hist-reset:disabled{opacity:.55;cursor:not-allowed;text-decoration:none;}
+
+  /* ===== модалки (карта / помощь / интро) ===== */
+  .modal{position:fixed;inset:0;z-index:60;display:flex;align-items:center;justify-content:center;padding:20px;
+    background:rgba(28,40,46,.5);backdrop-filter:blur(3px);opacity:0;visibility:hidden;transition:opacity .25s ease,visibility .25s ease;}
+  .modal.open{opacity:1;visibility:visible;}
+  .modal-card{position:relative;background:linear-gradient(180deg,#fdfaf3 0%,#f5eede 100%);border-radius:18px;max-width:440px;width:100%;
+    max-height:88vh;overflow-y:auto;padding:24px 24px 26px;box-shadow:0 30px 80px -30px rgba(28,40,46,.7);
+    transform:translateY(12px) scale(.98);transition:transform .28s cubic-bezier(.22,.8,.26,1);}
+  .modal.open .modal-card{transform:none;}
+  .modal-x{position:absolute;top:12px;right:12px;border:none;background:rgba(43,58,68,.06);width:34px;height:34px;
+    border-radius:50%;font-size:18px;color:var(--ink-soft);cursor:pointer;}
+  .modal-x:hover{background:rgba(43,58,68,.12);}
+  .modal-card h3{font-family:var(--serif);font-weight:400;font-size:24px;color:var(--teal-deep);margin:2px 0 10px;letter-spacing:.03em;}
+  .modal-card h4{font-family:var(--serif);font-weight:400;font-size:17px;color:var(--teal-deep);margin:16px 0 6px;}
+  .modal-card p{font-size:15px;line-height:1.62;color:#3c4a52;font-weight:300;margin:0 0 12px;}
+  .modal-card p.muted{font-size:13.5px;color:var(--ink-soft);}
+  .card-img{display:block;width:100%;border-radius:12px;background:#eef3f1;min-height:120px;}
+  .card-cap{text-align:center;font-family:var(--serif);font-size:18px;color:var(--ink);margin:14px 0 0;}
+  .help-qs{margin:6px 0 16px;padding-left:18px;}
+  .help-qs li{font-size:14.5px;line-height:1.55;color:#3c4a52;margin:0 0 9px;}
+  .big-btn{display:block;width:100%;border:none;border-radius:12px;background:var(--teal-deep);color:#fff;
+    font-family:inherit;font-size:15px;font-weight:600;padding:13px;cursor:pointer;letter-spacing:.03em;transition:filter .15s ease;}
+  .big-btn:hover{filter:brightness(1.06);}
+  .intro .lila-rule{margin-top:14px;padding:12px 14px;border-radius:10px;background:rgba(201,168,92,.13);
+    border-left:3px solid var(--gold);font-size:14px;color:#5e4a1e;}
+  .intro .contacts{margin-top:14px;font-size:14px;}
+  .intro .contacts a{color:var(--teal);}
+
+  /* ===== модалка рождения ===== */
+  .modal-card.birth{text-align:center;}
+  .modal-card.birth h3{font-size:27px;line-height:1.18;margin:4px 0 12px;}
+  .birth-mark{font-size:44px;line-height:1;color:var(--gold);margin:0 0 4px;text-shadow:0 0 18px rgba(201,168,92,.5);}
+  .modal-card.birth p{font-size:16px;}
+  .birth-accent{font-weight:600;color:#8a6d2e;}
+
+  /* ряд кнопок в шторке + карта клетки */
+  .sheet-actions{display:flex;flex-wrap:wrap;gap:10px;margin:2px 0 8px;}
+  .sheet-actions .hint-btn{margin:0;}
+  .card-cell-btn{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--teal-deep);
+    background:rgba(46,90,84,.1);color:var(--teal-deep);font-family:inherit;font-size:14px;font-weight:600;
+    padding:10px 15px;border-radius:99px;cursor:pointer;transition:background .15s ease;}
+  .card-cell-btn:hover{background:rgba(47,143,156,.18);}
+
+  /* винтажный филигранный разделитель (как ❖ на карте) */
+  .fdiv{display:flex;align-items:center;justify-content:center;gap:11px;margin:0 0 14px;color:var(--gold);}
+  .fdiv::before,.fdiv::after{content:"";height:1px;width:48px;}
+  .fdiv::before{background:linear-gradient(90deg,transparent,var(--gold));}
+  .fdiv::after{background:linear-gradient(90deg,var(--gold),transparent);}
+  .fdiv span{font-size:13px;letter-spacing:.3em;opacity:.85;}
+  .masthead .fdiv{margin:12px auto 0;}
+
 </style>
 </head>
 <body>
@@ -345,6 +433,7 @@
   <header class="masthead">
     <h1 class="wordmark">SATYA</h1>
     <p class="subtitle">Школа проводников Лилы · Лилия Сафина</p>
+    <div class="fdiv"><span>❖</span></div>
     <p class="lede">Нажмите на любую клетку, чтобы услышать её послание. 72 состояния, 9 стрел и 10 змей — путь к себе.</p>
   </header>
 
@@ -358,8 +447,16 @@
 
   <section class="history">
     <h3>История пути</h3>
-    <ul class="hist-list" id="hist-list"></ul>
-    <button class="hist-reset" id="hist-reset">Сбросить путь</button>
+    <div class="history-row">
+      <div class="history-main">
+        <ul class="hist-list" id="hist-list"></ul>
+        <button class="hist-reset" id="hist-reset">Сбросить путь</button>
+      </div>
+      <div class="dice-wrap">
+        <button id="dice" class="dice" aria-label="Бросить кубик" title="Бросить кубик"></button>
+        <div class="dice-cap" id="dice-cap">Бросить</div>
+      </div>
+    </div>
   </section>
 
   <p class="footer">© SATYA · Лила — игра самопознания</p>
@@ -379,10 +476,62 @@
     <div class="sheet-body" id="sheet-body"></div>
   </section>
 
-  <div class="dice-wrap">
-    <button id="dice" class="dice" aria-label="Бросить кубик" title="Бросить кубик"></button>
-    <div class="dice-cap" id="dice-cap">Бросить</div>
+  <button class="intro-btn" id="intro-btn" type="button">✦ Начни отсюда</button>
+  <button class="help-btn" id="help-btn" type="button">💡 Помощь</button>
+
+  <!-- модалка: карта -->
+  <div class="modal" id="card-modal">
+    <div class="modal-card">
+      <button class="modal-x" id="card-close" aria-label="Закрыть">✕</button>
+      <img id="card-img" class="card-img" alt="" />
+      <p class="card-cap" id="card-cap"></p>
+    </div>
   </div>
+
+  <!-- модалка: помощь -->
+  <div class="modal" id="help-modal">
+    <div class="modal-card">
+      <button class="modal-x" id="help-close" aria-label="Закрыть">✕</button>
+      <h3>Помощь</h3>
+      <div class="fdiv"><span>❖</span></div>
+      <p class="muted">Если сложно войти в игру или ты «завис» — побудь с этими вопросами. Можно вытянуть случайную карту — иногда она подсказывает выход.</p>
+      <ul class="help-qs" id="help-qs"></ul>
+      <button class="big-btn" id="help-card" type="button">🃏 Вытянуть случайную карту</button>
+    </div>
+  </div>
+
+  <!-- модалка: с чего начать -->
+  <div class="modal" id="intro-modal">
+    <div class="modal-card intro">
+      <button class="modal-x" id="intro-close" aria-label="Закрыть">✕</button>
+      <h3>Лила · с чего начать</h3>
+      <div class="fdiv"><span>❖</span></div>
+      <p>Лила — игра самопознания. Это способ услышать свою душу, получить ответы на свой запрос и подсветить путь, которому хорошо бы следовать. Суть не в том, чтобы выучить клетки, а в том, чтобы изучать вселенские законы и познавать себя.</p>
+      <h4>Перед началом</h4>
+      <p>Создай себе атмосферу: можно зажечь свечу, включить музыку — всё, что помогает настроиться на себя. Обратись к тем высшим силам, в которые ты веришь, с благодарностью за эту возможность и за помощь в игре. Затем мысленно (или вслух) назови свой запрос — то, в чём хочешь получить подсказку. Можно играть и без запроса, просто наблюдая, на что игра обратит твоё внимание.</p>
+      <h4>Как играть</h4>
+      <p>Чтобы войти в игру, брось кубик — нужна шестёрка. Дальше двигайся по полю, читай послания клеток, отвечай себе на вопросы. Шестёрка всегда означает «брось ещё раз». Нажимай на любую клетку, чтобы услышать её смысл.</p>
+      <div class="lila-rule">Однажды начатая игра должна быть закончена. Игра завершается только на 68 клетке «Высшее сознание». Если нет намерения закончить — лучше не начинать.</div>
+      <div class="contacts">
+        <h4>Нужна помощь?</h4>
+        <p class="muted">Нужна помощь в игре или хочешь пройти её с проводником — <a href="https://t.me/Lilakzn" target="_blank" rel="noopener">напиши Лиле в личку</a>.</p>
+      </div>
+      <button class="big-btn" id="intro-start" type="button">Начать игру</button>
+    </div>
+  </div>
+
+  <!-- модалка: рождение в игре -->
+  <div class="modal" id="birth-modal">
+    <div class="modal-card birth">
+      <div class="birth-mark">✦</div>
+      <h3>Поздравляем — ты родился в игре!</h3>
+      <div class="fdiv"><span>❖</span></div>
+      <p>Ты услышал свою душу. Шестёрка подтвердила: это именно тот запрос, который прямо сейчас приоритетен для твоей души.</p>
+      <p class="birth-accent">Запиши свой запрос в блокнот — и продолжай путь.</p>
+      <button class="big-btn" id="birth-ok" type="button">Записал, продолжаю</button>
+    </div>
+  </div>
+
 <script>
 /* ============ ДАННЫЕ КЛЕТОК ============ */
 const CELLS = {
@@ -607,8 +756,11 @@ function openCell(n){
     const to=SNAKES[n];
     html+=`<div class="move down"><span class="ico">↓</span><span>Змея вниз · спускает на <b>${to} · ${CELLS[to].ru}</b></span><button data-go="${to}">Перейти</button></div>`;
   }
-  html+=`<button class="hint-btn" type="button">💡 Подсказка — что с этим делать</button><div class="hint-box" hidden></div>`;
+  html+=`<div class="sheet-actions"><button class="hint-btn" type="button">💡 Подсказка — что с этим делать</button><button class="card-cell-btn" type="button" data-card="${n}">🃏 Открыть карту клетки</button></div><div class="hint-box" hidden></div>`;
   html+=c.t.split('\n\n').map(p=>`<p>${p}</p>`).join('');
+  if(typeof QUESTIONS!=='undefined' && QUESTIONS[n]){
+    html+='<div class="qs"><h4>Вопросы к себе</h4><ul>'+QUESTIONS[n].map(function(q){return '<li>'+q+'</li>';}).join('')+'</ul></div>';
+  }
   elBody.innerHTML=html;
   elBody.scrollTop=0;
   elBody.querySelectorAll('[data-go]').forEach(b=>{
@@ -617,6 +769,7 @@ function openCell(n){
   const _hb=elBody.querySelector('.hint-btn'), _hx=elBody.querySelector('.hint-box');
   if(_hb&&_hx){ _hx.textContent=(typeof HINTS!=='undefined'&&HINTS[n])?HINTS[n]:'Прислушайся к себе: что эта клетка говорит именно тебе сейчас?';
     _hb.addEventListener('click',()=>{_hx.hidden=!_hx.hidden;}); }
+  const _cc=elBody.querySelector('.card-cell-btn'); if(_cc) _cc.addEventListener('click',()=>{ showCard(+_cc.dataset.card); });
 
   // подсветка цели на поле
   highlight(ARROWS[n]||SNAKES[n]||null);
@@ -715,6 +868,94 @@ const HINTS={
 72:"Понимания верны, но ещё не реализованы. Иди и действуй — сделай задуманное.",
 };
 
+
+/* ===== ВОПРОСЫ К СЕБЕ по каждой клетке (из «Клеточек Лила») ===== */
+const QUESTIONS={
+1:["Для каких уроков твоя душа выбрала эту семью, родителей, условия рождения?","Что из детства ты хотел бы повторить, а чего точно не хочешь?","Что из своего детства ты хотел бы дать детям, а что сделал бы иначе?"],
+2:["Я сам всё это выбрал — этих людей, место, дело? И выбираю ли сейчас?","Если бы было три свободных года без обязательств — как, где и с кем ты их провёл бы?","Что моё, а что не моё в том, что меня окружает?"],
+3:["На что именно сейчас поднимается твой гнев и с чем ты не согласен?","Как направить эту силу на изменение того, что не нравится?","Позволяешь ли ты себе проявлять гнев экологично, не нарушая чужих границ?"],
+4:["Чего ты хочешь на самом деле — не «престижно», а именно твоё?","Что должно произойти, чтобы ты почувствовал себя счастливым? Пожелай прямо сейчас.","Что важного добавить в жизнь, чтобы стать счастливее?"],
+5:["Какую родовую установку ты несёшь — и какая из них тебя ограничивает?","За что ты благодарен своему роду? В чём его сила?","Достаточно ли внимания ты уделяешь близким — или, наоборот, есть зависимость?"],
+6:["Какие правила ты принял за истину, хотя они тебя ограничивают?","На самом ли деле тебе сейчас нужны эти ограничения?","Что из прежнего уже не твоё и пора отпустить?"],
+7:["Что я думаю и знаю о себе — где здесь заблуждение на свой счёт?","От какой роли или «короны» стоит отказаться, чтобы расти дальше?","А может, наоборот — пора надеть корону и поверить в себя?"],
+8:["Что именно тебя не устраивает и чего тебе не хватает?","Какое конкретное действие к цели ты можешь сделать уже сегодня?","Ценишь ли ты то, что уже есть? Ты ведь когда-то об этом мечтал."],
+9:["Что я чувствую прямо сейчас?","Позволяю ли я себе чувствовать и проявлять то, что чувствую?","Какой чувственный опыт остался непрожитым и просит внимания?"],
+10:["От чего пора очиститься — в мыслях, окружении, привычках?","Что для тебя очищение прямо сейчас?","Какой груз и балласт мешает твоему пути?"],
+11:["Что наполняет тебя просто так, ради удовольствия?","Если бы не надо было работать и выживать — чем бы ты занялся?","Позволяешь ли ты себе развлечения и отдых? А что, наоборот, опустошает?"],
+12:["Что ты откладываешь «на потом», на «когда-нибудь»?","Какие условия ты себе поставил, без которых «не будешь счастлив»?","Как прожить и насладиться жизнью уже сейчас, а не потом?"],
+13:["Что в жизни приводит тебя в состояние «без сил»? Какие люди, мысли, события?","Какую маленькую цель ты можешь поставить, чтобы оттолкнуться?","Не носишь ли ты маску «у меня всё хорошо»?"],
+14:["Каких людей ты хочешь видеть вокруг себя?","Как ты научился взаимодействовать, не теряя себя?","Что привносят в твою жизнь связи и насколько раскрыта твоя сексуальная энергия?"],
+15:["А что если…? Какая фантазия просится в твою жизнь?","Какие порывы души остаются у тебя нереализованными?","Не уходишь ли ты в фантазии от реальности — и как воплотить их в ней?"],
+16:["Чего и как ты хочешь на самом деле?","Сколько внимания ты тратишь на чужие оценки и одобрение?","Что для тебя значит любить себя?"],
+17:["Можешь ли ты посмотреть на ситуацию глазами другого человека?","Как ты относишься к чувствам других — и помнишь ли о своих?","Где грань между состраданием и потерей себя в спасательстве?"],
+18:["Что для тебя радость и умеешь ли ты радоваться?","Достаточно ли радости в твоей жизни? Если нет — почему?","Что ты можешь сделать, чтобы радости стало больше?"],
+19:["Какое действие сегодня создаёт ту жизнь, которую ты хочешь завтра?","Какие решения ты принимаешь прямо сейчас о своём будущем?","Что ты сеешь — и что готов пожинать?"],
+20:["Кому и что ты можешь отдать искренне, без ожидания выгоды?","Во что — в кого — ты вкладываешь себя, своё время и внимание?","За что ты можешь быть благодарен прямо сейчас?"],
+21:["Что бы ты хотел исправить в жизни сейчас? А в чём был урок?","Какая ситуация повторяется — и как реагировать иначе?","Может, пора простить кого-то или себя?"],
+22:["Какова твоя истинная природа и в чём твои особенности?","Как привести жизнь и дело в согласие с тем, какой ты?","Что ты по природе своей души должен реализовать в этом мире?"],
+23:["Выделяешь ли ты время на своё развитие в беге жизни?","На что ты тратишь главный невосполнимый ресурс — время?","Какие возможности перед тобой открыты и используешь ли ты их?"],
+24:["После общения с кем у тебя нет сил радоваться и двигаться?","Чьё влияние тормозит тебя, на чьё мнение ты опираешься?","Умеешь ли ты оставаться в своей правде несмотря на других?"],
+25:["После общения с кем ты полон энергии?","С кем у тебя общие цели и ценности?","Какое новое вдохновляющее окружение ты можешь найти?"],
+26:["Что сейчас сложно принять — и от чего ты отказываешься двигаться?","Какую небольшую цель поставить, чтобы начать движение?","Можешь ли ты использовать печаль как ресурс для большого дела?"],
+27:["Какой высшей цели ты готов посвятить часть своей жизни?","Ради чего ты готов меняться сам и менять свою жизнь?","Какую высшую цель можно внести в твоё дело или проект?"],
+28:["Принимаешь ли ты свою жизнь со всеми взлётами и падениями как свою?","Что ты любишь настолько, чтобы достигать в этом совершенства?","Готов ли ты взять ответственность за свою жизнь?"],
+29:["В чём ты идёшь против своей природы и делаешь не по душе?","Я хочу то, что делаю сейчас? Я это выбираю?","Что останавливает тебя идти путём, который ближе душе?"],
+30:["Какую хорошую привычку или маленький шаг развития начнёшь сейчас?","Что верное для себя ты уже понял?","В какой ещё сфере ты можешь раскрыться?"],
+31:["О чём ты хочешь спросить своего учителя, проводника, родную душу?","Умеешь ли ты слышать ответы — людей, знаки, пространство?","Кто мог бы стать для тебя наставником?"],
+32:["А что на моём месте сделала бы любовь?","Что приводит тебя в состояние равновесия и открытого сердца?","Слышишь ли ты своё сердце — и что оно говорит?"],
+33:["Чем «пахнет» дело или встреча, в которые ты идёшь?","Если выбирать только благотворные ароматы — что бы ты выбрал?","Какой аромат у твоей жизни сейчас, а какой ты хочешь?"],
+34:["Какой вкус у твоей жизни и какой ты хочешь?","«Вкусно» ли тебе то, что ты делаешь и с кем находишься?","Что есть благо для твоего тела — и доверяешь ли ты ощущениям?"],
+35:["Что эта боль помогает завершить?","Ты выбираешь поблагодарить и закрыть этап — или залипнуть в нём?","Какое новое понимание приходит через этот кризис?"],
+36:["Где в твоей жизни ты уже реализовался, а где ещё нет?","Что ты можешь сделать, чтобы двигаться к своим целям?","Если посмотреть честно, без иллюзий — как есть на самом деле?"],
+37:["Если посмотреть на ситуацию глазами души — для чего это происходит?","Какую суть и причину ты видишь за внешним событием?","Где ты можешь сменить оценку на принятие?"],
+38:["Что даёт тебе энергию и как ты её восполняешь?","Наполнен ли ты сейчас? Оставляешь ли себе место восполняться?","Что сделать для расширения своего энергетического потенциала?"],
+39:["Что тебе пора отпустить с благодарностью?","За что ты цепляешься, что давно пора оставить?","Что должно уйти, чтобы пришло новое?"],
+40:["Куда утекает твоя энергия и внимание?","За кого ты решаешь вопросы, которые они могут решить сами?","Как вернуть себе своё внимание и силы?"],
+41:["В чём ты чувствуешь потребность проявиться и реализоваться?","Что ты можешь делать легко и всегда, даже без оплаты?","Где и в чём ты можешь быть очень нужным и полезным?"],
+42:["Какая трансформация назрела в твоей жизни?","В какой другой форме делать то, что ты делаешь?","От какой формы ты готов отказаться ради роста?"],
+43:["Какие чувства и мысли у тебя при словах «Рождение Человека»?","Как меняется твоё отношение ко времени жизни?","Что для тебя значит быть осознанным человеком?"],
+44:["Какой чувственный опыт остался непрожитым и тянет назад?","Есть ли обида, страх, боль, от которых ты закрылся?","Что важное ждёт тебя в чувственной сфере?"],
+45:["Какая система знаний или учитель тебе откликается?","Доверяешь ли ты знанию — или обесцениваешь его?","Что из знаний ты готов интегрировать в жизнь и поведение?"],
+46:["Что говорит тебе твой внутренний голос — что твоё, а что нет?","Отличаешь ли ты голос ума от голоса души?","Где интуиция подсказывает тебе направление?"],
+47:["В чём ты по-настоящему хорош? В чём твоя скрытая сила?","Какие свои способности ты не замечаешь или отрицаешь?","Какие условия создать для пробуждения своей силы?"],
+48:["Где включить решимость и действовать ярко?","Вспомни моменты, когда ты в порыве творил и создавал — что это было?","Какую «плотину» пора прорвать одним смелым действием?"],
+49:["Где в жизни тебе не хватает покоя и созерцания?","Умеешь ли ты останавливаться и просто быть?","Как уравновесить в себе действие и наслаждение моментом?"],
+50:["Что сделать непросто, но ты понимаешь — это нужно для души?","Какую аскезу или смелый шаг ты давно откладываешь?","Где здесь важна разумность и экологичность?"],
+51:["Как ты будешь использовать время своего земного воплощения?","Как ты проявишь волю своей души и какой у тебя есть ресурс?","Что для тебя связь с Землёй и опорой?"],
+52:["Где есть насилие — над собой, над другими, над пространством?","Заставляешь ли ты себя делать что-то «потому что надо»?","Учитываешь ли ты волю и интересы других людей?"],
+53:["Где тебе добавить гибкости, мягкости и доверия?","Что ты можешь передать дальше, не зажимая знания и энергию?","Как у тебя с доверием — к себе, людям, миру?"],
+54:["Что важное ты уже осознал и получил в этой игре?","Где в твоей жизни проявляется любовь к миру, людям, Богу?","Достаточно ли того, что ты понял сейчас?"],
+55:["Где твоё эго хочет всё контролировать?","Какая форма, роль или мнение начали тебя ограничивать?","Можешь ли ты делать, но не привязываться; идти, но не настаивать?"],
+56:["О чём важном тебе пора заявить вслух?","Умеешь ли ты говорить так, чтобы тебя слышали — и вовремя замолчать?","Чего хочет твой голос, твоя душа — прозвучать как?"],
+57:["Где добавить лёгкости и отпустить тотальный контроль?","Чувствуешь ли ты пространство — когда ускориться, а когда подождать?","Что значит для тебя быть в потоке?"],
+58:["Можешь ли ты задать свой вопрос шире?","Куда ты ещё не заглядывал в своей жизни?","Если представить, что тебе 80 — какой совет ты себе дашь?"],
+59:["Зачем ты здесь именно сейчас и в чём твоя цель?","Как ты хочешь потратить оставшееся время воплощения?","Какую реальность ты хочешь создать?"],
+60:["Какую дорогу тебе хочется пройти — в деталях?","Как организовать жизнь под свои ценности и цели?","Из каких глаз ты смотришь на мир — создаёшь рай или ад?"],
+61:["На чьи задачи и ценности направлен сейчас твой фокус?","Какие «заборы» ты сам себе поставил?","Что изменить, чтобы двигаться к своим целям?"],
+62:["Что для тебя счастье и что тебе нужно для счастья?","Из каких состояний ты пришёл к этому счастью?","Не привязываешься ли ты к счастью, останавливая движение?"],
+63:["Где в жизни остановка, застой и нужны перемены?","Что ты хочешь продолжать так же, а что — изменить?","Посмотри свежим взглядом: что пора пройти и вспомнить?"],
+64:["Как часто ты бываешь на природе, где тебе хорошо?","Что для тебя связь с Землёй?","Какой порыв души просится воплотиться в реальность?"],
+65:["Часто ли ты заглядываешь внутрь себя? Что там?","Что нужно изменить внутри, чтобы изменилась реальность снаружи?","Чем наполнено твоё внутреннее пространство?"],
+66:["В какие моменты жизни ты испытываешь блаженство?","За что ты можешь сказать «спасибо за всё» прямо сейчас?","Что для тебя безусловная благодарность?"],
+67:["От какой роли, концепции или модели поведения пора отказаться?","В чём ты застрял, что уже не нужно, а ты всё ещё живёшь этим?","Что из обретённого ты возьмёшь с собой дальше?"],
+68:["Что ты понял и какие ответы получил?","Что теперь возьмёшь с собой в жизнь?","Как ты будешь интегрировать этот опыт?"],
+69:["Что ты хочешь создать на Земле?","С каким намерением и мыслями ты идёшь дальше?","Чему хочешь научиться и что передать другим?"],
+70:["Даёшь ли ты себе право на ошибку?","Готов ли ты сделать «как получается», не стремясь к идеалу?","Можешь ли ты позволить себе разочаровать кого-то?"],
+71:["Куда направлена твоя энергия движения — в какие сферы, на каких людей?","Соответствует ли это направление твоим истинным целям?","Что давно пора «зашевелить» в своей жизни?"],
+72:["Твои понимания верны — но реализованы ли они?","Какое конкретное действие ты сделаешь, вернувшись на Землю?","С каким намерением ты идёшь действовать?"]
+};
+
+/* ===== РАЗДЕЛ «ПОМОЩЬ»: наводящие вопросы (доступны всегда) ===== */
+const HELP_QUESTIONS=[
+"Есть ли сейчас в твоей жизни что-то, с чем ты не согласен? Какие обстоятельства хотел бы изменить?",
+"Что в своей жизни ты хотел бы сделать по-другому? В чём назрела необходимость перемен?",
+"От чего, если оно произойдёт, ты станешь гораздо счастливее?",
+"Куда хорошо бы направить энергию движения? Что давно пора «зашевелить»?",
+"Есть ли что-то, что ты не можешь отпустить? Где-то слишком контролируешь ситуацию?",
+"На чём сейчас действительно важно сфокусироваться — что для тебя в приоритете?",
+"Вспомни запрос, с которым ты вошёл в игру. О чём он на самом деле?"
+];
+
 const diceEl=document.getElementById('dice');
 const diceCap=document.getElementById('dice-cap');
 const logEl=document.getElementById('hist-list');
@@ -722,52 +963,187 @@ const PIPS={1:[4],2:[0,8],3:[0,4,8],4:[0,2,6,8],5:[0,2,4,6,8],6:[0,2,3,5,6,8]};
 function drawDie(v){let s='';for(let i=0;i<9;i++)s+='<span class="pip'+(PIPS[v].indexOf(i)>=0?' on':'')+'"></span>';diceEl.innerHTML=s;}
 drawDie(6);
 
-let cur=0, rolling=false, finished=false;
-const LOG=[];
+/* состояние + сохранение между сессиями */
+const STORE='satya_lila_state_v2';
+let cur=0, finished=false, rolling=false, throws=0, gunaStuck=0, lastNudge=0, pendingBirth=false;
+let LOG=[];
+function save(){try{localStorage.setItem(STORE,JSON.stringify({cur,finished,throws,gunaStuck,lastNudge,log:LOG.slice(0,160)}));}catch(e){}}
+function load(){try{const s=JSON.parse(localStorage.getItem(STORE));if(s){cur=s.cur||0;finished=!!s.finished;throws=s.throws||0;gunaStuck=s.gunaStuck||0;lastNudge=s.lastNudge||0;LOG=Array.isArray(s.log)?s.log:[];}}catch(e){}}
+
 function landName(n){return n+' · '+CELLS[n].ru;}
-function pushLog(html,cell){LOG.unshift({html:html,cell:cell||null});renderLog();}
+function pushLog(html,cell){LOG.unshift({html:html,cell:cell||null});if(LOG.length>220)LOG.length=220;renderLog();}
 function renderLog(){
   if(!LOG.length){logEl.innerHTML='<li class="hist-empty">Брось кубик, чтобы начать путь…</li>';return;}
   logEl.innerHTML=LOG.map(function(e){return '<li class="hist-item'+(e.cell?' clk':'')+'"'+(e.cell?' data-cell="'+e.cell+'"':'')+'>'+e.html+'</li>';}).join('');
   logEl.querySelectorAll('[data-cell]').forEach(function(li){li.addEventListener('click',function(){openCell(+li.getAttribute('data-cell'));});});
 }
-renderLog();
 function markHere(n){
   document.querySelectorAll('.cell.is-here').forEach(function(e){e.classList.remove('is-here');});
   if(n){var t=grid.querySelector('.cell[data-n="'+n+'"]');if(t)t.classList.add('is-here');}
 }
-function step(v){
-  pushLog('\uD83C\uDFB2 Бросок: <b>'+v+'</b>');
-  if(cur===0){
-    if(v===6){cur=6;pushLog('\u2726 Рождение в игре \u2192 '+landName(6),6);finishMark();}
-    else pushLog('Чтобы войти в игру, нужна <b>6</b>');
-    return;
-  }
-  var np=cur+v;
-  if(np>72){pushLog('Перебор — остаёшься на '+landName(cur),cur);return;}
-  cur=np;
-  pushLog('\u2192 '+landName(cur),cur);
-  if(ARROWS[cur]){var to=ARROWS[cur];pushLog('\u2191 Стрела вверх: '+cur+' \u2192 '+landName(to),to);cur=to;pushLog('\u2192 '+landName(cur),cur);}
-  else if(SNAKES[cur]){var td=SNAKES[cur];pushLog('\u2193 Змея вниз: '+cur+' \u2192 '+landName(td),td);cur=td;pushLog('\u2192 '+landName(cur),cur);}
-  finishMark();
+function rnd(){return 1+Math.floor(Math.random()*6);}
+
+/* один анимированный бросок, затем cb(value) */
+function spinDie(cb){
+  diceEl.classList.add('rolling');diceCap.textContent='…';
+  var iv=setInterval(function(){drawDie(rnd());},70);
+  setTimeout(function(){clearInterval(iv);diceEl.classList.remove('rolling');var v=rnd();drawDie(v);diceCap.textContent='Бросить';cb(v);},780);
 }
-function finishMark(){
-  markHere(cur);
-  if(cur===68){finished=true;pushLog('\uD83D\uDD49 Путь завершён — Высшее сознание (68)');}
-}
+
+/* клик по кубику = система сама докидывает шестёрки и собирает серию */
 function roll(){
-  if(rolling) return;
-  if(finished){pushLog('Путь завершён. Нажми «Сбросить путь», чтобы начать заново.');return;}
-  rolling=true; diceEl.classList.add('rolling'); diceCap.textContent='…';
-  var iv=setInterval(function(){drawDie(1+Math.floor(Math.random()*6));},70);
-  setTimeout(function(){
-    clearInterval(iv); diceEl.classList.remove('rolling');
-    var v=1+Math.floor(Math.random()*6); drawDie(v); diceCap.textContent='Бросить';
-    rolling=false; step(v);
-  },1200);
+  if(rolling)return;
+  if(finished){pushLog('Путь завершён. Нажми «Начать новый путь», чтобы пройти заново.');return;}
+  rolling=true;
+  var series=[];
+  (function collect(){
+    spinDie(function(v){
+      throws++;series.push(v);
+      if(v===6){pushLog('\uD83C\uDFB2 Бросок: <b>6</b> — шестёрка, кидаем ещё раз');collect();}
+      else{pushLog('\uD83C\uDFB2 Бросок: <b>'+v+'</b>');rolling=false;playTurn(series);}
+    });
+  })();
 }
+
+/* разыгрывание серии: правило трёх шестёрок + вход + змеи/стрелы по одному кубику */
+function playTurn(series){
+  var count6=series.length-1, final=series[series.length-1];
+  if(cur===0 && count6===0){
+    pushLog('Чтобы войти в игру, нужна <b>6</b>. Тот ли это запрос, в котором ты сейчас? Шестёрка подтвердит, что он верный.');
+    afterTurn();return;
+  }
+  if(cur===0){pendingBirth=true;pushLog('\u2726 Рождение в игре');}
+  var moves=[], acsent=false;
+  if(count6===3){moves=[final];acsent=true;pushLog('\uD83D\uDD25 Три шестёрки сгорают — делается акцент на клетку после них');}
+  else{for(var i=0;i<count6;i++)moves.push(6);moves.push(final);}
+  for(var k=0;k<moves.length;k++){
+    applyDie(moves[k], acsent && k===moves.length-1);
+    if(finished)break;
+  }
+  afterTurn();
+}
+
+/* один шаг кубика: перебор>72 — стоишь; иначе ход + одна змея/стрела */
+function applyDie(v,acsent){
+  var np=cur+v;
+  if(np>72){pushLog('\u2022 '+v+' не сыграть отсюда — остаёшься на '+landName(cur)+' (ничего не сдвинулось)',cur);return;}
+  cur=np;
+  pushLog((acsent?'\uD83D\uDCCC <b>Акцент:</b> ':'\u2192 ')+landName(cur),cur);
+  if(ARROWS[cur]){var ua=ARROWS[cur];pushLog('\u2191 Стрела: '+cur+' \u2192 '+landName(ua),ua);cur=ua;pushLog('\u2192 '+landName(cur),cur);}
+  else if(SNAKES[cur]){var sd=SNAKES[cur];pushLog('\u2193 Змея: '+cur+' \u2192 '+landName(sd),sd);cur=sd;pushLog('\u2192 '+landName(cur),cur);}
+  markHere(cur);
+  if(cur===68){finished=true;pushLog('\uD83D\uDD49 Путь завершён — Высшее сознание (68). Теперь интегрируй опыт в жизнь.');}
+}
+
+function afterTurn(){markHere(cur);updateControls();checkTriggers();save();if(pendingBirth){pendingBirth=false;openBirth();}}
+
+/* мягкие триггеры подсказок */
+function nudge(text){
+  if(throws-lastNudge<6)return;        // не спамим
+  lastNudge=throws;
+  pushLog('\uD83D\uDCA1 <b>Подсказка:</b> '+text+' <button class="loglink" data-help="1">Открыть «Помощь»</button>');
+  var b=logEl.querySelector('[data-help]');if(b)b.addEventListener('click',openHelp);
+}
+function checkTriggers(){
+  // долго не входит в игру
+  if(cur===0 && throws>=20){nudge('Шестёрка пока не выпадает. Попробуй переформулировать свой запрос или загляни в «Помощь».');return;}
+  // завис в треугольнике гун (нужны точные малые числа, чтобы спуститься)
+  if(cur===69||cur===70||cur===71){gunaStuck++;}else{gunaStuck=0;}
+  if(gunaStuck>=8){gunaStuck=0;nudge('Ты в области энергий-гун и пока не спускаешься на Землю. Вспомни запрос — куда направить энергию движения?');return;}
+  // очень долгая игра
+  if(!finished && throws>=100 && throws-lastNudge>=30){nudge('Игра идёт долго. Можно вытянуть случайную карту в «Помощи» — иногда она подсказывает выход.');}
+}
+
+/* кнопки: сброс только после финиша; карта — только когда «родился» */
+function updateControls(){
+  var rb=document.getElementById('hist-reset');
+  if(finished){rb.disabled=false;rb.textContent='Начать новый путь';}
+  else{rb.disabled=true;rb.textContent='Игру нужно завершить (дойти до 68)';}
+}
+
 diceEl.addEventListener('click',roll);
-document.getElementById('hist-reset').addEventListener('click',function(){cur=0;finished=false;LOG.length=0;renderLog();markHere(null);drawDie(6);});
+document.getElementById('hist-reset').addEventListener('click',function(){
+  if(!finished)return;
+  cur=0;finished=false;throws=0;gunaStuck=0;lastNudge=0;LOG.length=0;
+  renderLog();markHere(null);drawDie(6);updateControls();save();
+});
+
+/* ===== КАРТА ПО КЛЕТКЕ + СЛУЧАЙНАЯ ===== */
+var cardModal=document.getElementById('card-modal');
+var cardImg=document.getElementById('card-img');
+var cardCap=document.getElementById('card-cap');
+function pad2(n){return (n<10?'0':'')+n;}
+function showCard(n){
+  cardCap.textContent=n+' \u00b7 '+CELLS[n].ru;
+  cardImg.style.display='';
+  var cand=['cards/'+pad2(n)+'.jpg','cards/'+pad2(n)+'.jpeg','cards/'+pad2(n)+'.png','cards/'+pad2(n)+'.webp','cards/'+n+'.jpg','cards/'+n+'.png'];
+  var ei=0;
+  cardImg.onerror=function(){
+    ei++;
+    if(ei<cand.length){cardImg.src=cand[ei];}
+    else{
+      cardImg.onerror=null;cardImg.style.display='none';
+      cardCap.innerHTML=n+' \u00b7 '+CELLS[n].ru+'<br><span style="font-size:13px;color:#9c2f4a;font-family:var(--sans)">Карта не найдена. Проверь, что файл <b>cards/'+pad2(n)+'.jpg</b> залит рядом с index.html.</span>';
+    }
+  };
+  cardImg.alt='Карта клетки '+n;
+  cardImg.src=cand[0];
+  cardModal.classList.add('open');
+}
+function closeCard(){cardModal.classList.remove('open');cardImg.removeAttribute('src');}
+(function(){
+  document.getElementById('card-close').addEventListener('click',closeCard);
+  cardModal.addEventListener('click',function(e){if(e.target===cardModal)closeCard();});
+})();
+
+/* ===== ПОМОЩЬ (работает всегда) ===== */
+var helpModal=document.getElementById('help-modal');
+function openHelp(){
+  var box=document.getElementById('help-qs');
+  box.innerHTML=HELP_QUESTIONS.map(function(q){return '<li>'+q+'</li>';}).join('');
+  helpModal.classList.add('open');
+}
+function closeHelp(){helpModal.classList.remove('open');}
+(function(){
+  document.getElementById('help-btn').addEventListener('click',openHelp);
+  document.getElementById('help-close').addEventListener('click',closeHelp);
+  helpModal.addEventListener('click',function(e){if(e.target===helpModal)closeHelp();});
+  document.getElementById('help-card').addEventListener('click',function(){
+    var n=1+Math.floor(Math.random()*72);
+    closeHelp();showCard(n);
+  });
+})();
+
+/* ===== ИНТРО «НАЧНИ ОТСЮДА» ===== */
+var introModal=document.getElementById('intro-modal');
+function openIntro(){introModal.classList.add('open');}
+function closeIntro(){introModal.classList.remove('open');}
+(function(){
+  document.getElementById('intro-btn').addEventListener('click',openIntro);
+  document.getElementById('intro-close').addEventListener('click',closeIntro);
+  document.getElementById('intro-start').addEventListener('click',closeIntro);
+  introModal.addEventListener('click',function(e){if(e.target===introModal)closeIntro();});
+})();
+
+/* ===== РОЖДЕНИЕ ===== */
+var birthModal=document.getElementById('birth-modal');
+function openBirth(){birthModal.classList.add('open');}
+function closeBirth(){birthModal.classList.remove('open');}
+(function(){
+  document.getElementById('birth-ok').addEventListener('click',closeBirth);
+  birthModal.addEventListener('click',function(e){if(e.target===birthModal)closeBirth();});
+})();
+
+document.addEventListener('keydown',function(e){
+  if(e.key==='Escape'){closeCard();closeHelp();closeIntro();closeBirth();}
+});
+
+/* ===== старт: восстановить сохранённое состояние ===== */
+load();renderLog();markHere(cur);updateControls();
+if(!localStorage.getItem('satya_lila_seen_intro')){
+  openIntro();try{localStorage.setItem('satya_lila_seen_intro','1');}catch(e){}
+}
+
 
 
 /* ===== Пароль (мягкая защита). Смени значение PASSWORD на свой пароль ===== */
