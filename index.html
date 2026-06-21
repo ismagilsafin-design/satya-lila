@@ -416,6 +416,33 @@
   .fdiv span{font-size:13px;letter-spacing:.3em;opacity:.85;}
   .masthead .fdiv{margin:12px auto 0;}
 
+
+  /* ===== панель послания шестёрки ===== */
+  .six-note{max-width:300px;margin:0 auto;background:linear-gradient(180deg,#fdfaf3,#f5eede);
+    border:1px solid var(--gold);border-radius:14px;font-size:13.5px;line-height:1.5;color:var(--ink);
+    text-align:center;box-shadow:0 16px 36px -22px rgba(43,58,68,.5);
+    opacity:0;transform:translateY(6px);max-height:0;overflow:hidden;padding:0 14px;margin-bottom:0;
+    transition:opacity .25s ease,transform .25s ease,max-height .3s ease,padding .25s ease,margin .25s ease;}
+  .six-note.show{opacity:1;transform:none;max-height:240px;padding:12px 14px;margin-bottom:12px;}
+
+  /* ===== финальная модалка ===== */
+  .modal-card.finish h3{color:var(--teal-deep);}
+  .finish-quote{margin:14px 0;padding:14px 16px;border-left:2px solid var(--gold);
+    background:rgba(194,162,99,.08);border-radius:8px;font-style:italic;color:var(--teal-deep);line-height:1.55;}
+  .finish-link{display:inline-flex;align-items:center;justify-content:center;gap:8px;
+    font-family:var(--serif);font-size:15px;color:var(--teal-deep);text-decoration:none;
+    border:1px solid var(--gold);border-radius:99px;padding:11px 22px;}
+  .finish-link:hover{background:rgba(194,162,99,.12);}
+
+  /* ===== ТЕЛЕФОН: чистое поле (номер крупно) ===== */
+  @media (max-width:560px){
+    .board-stage{padding:0 8px;}
+    .cell{justify-content:center;align-items:center;text-align:center;padding:2px;}
+    .cell .ru,.cell .sa{display:none;}
+    .cell .num{font-size:clamp(14px,4.6cqw,22px);font-weight:600;margin:0;}
+    .intro-btn{font-size:14px;padding:8px 13px;left:12px;top:12px;gap:7px;}
+    .masthead{padding-top:54px;}
+  }
 </style>
 </head>
 <body>
@@ -453,11 +480,32 @@
         <button class="hist-reset" id="hist-reset">Сбросить путь</button>
       </div>
       <div class="dice-wrap">
+        <div class="six-note" id="six-note" role="status" aria-live="polite"></div>
         <button id="dice" class="dice" aria-label="Бросить кубик" title="Бросить кубик"></button>
         <div class="dice-cap" id="dice-cap">Бросить</div>
       </div>
     </div>
   </section>
+
+  <!-- модалка: финал игры (68) -->
+  <div class="modal" id="finish-modal">
+    <div class="modal-card finish">
+      <button class="modal-x" id="finish-close" aria-label="Закрыть">✕</button>
+      <div class="birth-mark">✦</div>
+      <h3>Поздравляю, ты завершил игру</h3>
+      <div class="fdiv"><span>❖</span></div>
+      <p>Здесь ты становишься ещё ближе к себе, к своей жизни, к своему духу. Здесь завершился процесс получения сообщений, который происходит в игре Лила, — некий цикл закрывается. Ты получил ответы на свои вопросы, услышал свою душу, запустил новую карму. Лила показала тебе путь, которому хорошо бы следовать, чтобы быть в соединённости со своей душой. Это то, чего на самом деле хочет твоя душа.</p>
+      <p>Теперь всё, что нужно, — пойти и воплощать это в жизни, интегрировать в неё свой опыт.</p>
+      <h4>И ещё — на финал</h4>
+      <p>Поблагодари. Сейчас очень важно поблагодарить те высшие силы, к которым ты обращался перед игрой за помощью. Поблагодари их за эту игру и за полученные ответы. Поблагодари поле игры Лила. Поблагодари себя.</p>
+      <p>И сегодня я очень прошу тебя: дай себе максимум внимания. После игры не торопись возвращаться в обычные дела. Идеально, если ты прогуляешься наедине с собой или примешь душ, — игра Лила ещё будет разворачиваться в твоей жизни дальше. Важно дать этому время и место.</p>
+      <p>А теперь обязательно произнеси:</p>
+      <div class="finish-quote">«Моя душа возьмёт из этого опыта ровно столько, сколько ей необходимо. И я даю этому время и место. Да будет так. И слава Богу.»</div>
+      <p style="text-align:center;margin-top:18px">Хочешь изучать Лилу дальше — подключайся к каналу Лилии:</p>
+      <p style="text-align:center;margin:8px 0 2px"><a class="finish-link" href="https://t.me/+TZejwddCbOM2YzMy" target="_blank" rel="noopener">✦ Канал Лилии</a></p>
+      <button class="big-btn" id="finish-ok" type="button" style="margin-top:18px">Завершить</button>
+    </div>
+  </div>
 
   <p class="footer">© SATYA · Лила — игра самопознания</p>
 
@@ -966,9 +1014,10 @@ drawDie(6);
 /* состояние + сохранение между сессиями */
 const STORE='satya_lila_state_v2';
 let cur=0, finished=false, rolling=false, throws=0, gunaStuck=0, lastNudge=0, pendingBirth=false;
+let pendingSeries=[];let finishShown=false;
 let LOG=[];
-function save(){try{localStorage.setItem(STORE,JSON.stringify({cur,finished,throws,gunaStuck,lastNudge,log:LOG.slice(0,160)}));}catch(e){}}
-function load(){try{const s=JSON.parse(localStorage.getItem(STORE));if(s){cur=s.cur||0;finished=!!s.finished;throws=s.throws||0;gunaStuck=s.gunaStuck||0;lastNudge=s.lastNudge||0;LOG=Array.isArray(s.log)?s.log:[];}}catch(e){}}
+function save(){try{localStorage.setItem(STORE,JSON.stringify({cur,finished,throws,gunaStuck,lastNudge,pendingSeries,log:LOG.slice(0,160)}));}catch(e){}}
+function load(){try{const s=JSON.parse(localStorage.getItem(STORE));if(s){cur=s.cur||0;finished=!!s.finished;throws=s.throws||0;gunaStuck=s.gunaStuck||0;lastNudge=s.lastNudge||0;pendingSeries=s.pendingSeries||[];finishShown=!!s.finished;LOG=Array.isArray(s.log)?s.log:[];}}catch(e){}}
 
 function landName(n){return n+' · '+CELLS[n].ru;}
 function pushLog(html,cell){LOG.unshift({html:html,cell:cell||null});if(LOG.length>220)LOG.length=220;renderLog();}
@@ -995,15 +1044,40 @@ function roll(){
   if(rolling)return;
   if(finished){pushLog('Путь завершён. Нажми «Начать новый путь», чтобы пройти заново.');return;}
   rolling=true;
-  var series=[];
-  (function collect(){
-    spinDie(function(v){
-      throws++;series.push(v);
-      if(v===6){pushLog('\uD83C\uDFB2 Бросок: <b>6</b> — шестёрка, кидаем ещё раз');collect();}
-      else{pushLog('\uD83C\uDFB2 Бросок: <b>'+v+'</b>');rolling=false;playTurn(series);}
-    });
-  })();
+  spinDie(function(v){
+    throws++;
+    if(v===6){
+      pendingSeries.push(6);
+      pushLog('🎲 Бросок: <b>6</b> — шестёрка');
+      openSix(pendingSeries.length);
+      diceCap.textContent='Брось ещё раз';
+      rolling=false; save();
+    } else {
+      pushLog('🎲 Бросок: <b>'+v+'</b>');
+      clearSix(); diceCap.textContent='Бросить';
+      var s=pendingSeries.concat([v]);
+      pendingSeries=[];
+      rolling=false;
+      playTurn(s);
+    }
+  });
 }
+
+var SIX_MSGS=[
+ 'Выпала шестёрка. Это не случайно — она подчёркивает, акцентирует внимание. Брось кубик ещё раз сам.',
+ 'Шестёрка — знак: здесь важно. Обрати внимание на клетку, которая выпадет после неё. Брось ещё раз.',
+ 'Шестёрка усиливает. То, что придёт следующим, — для тебя сейчас особенно значимо. Кидай ещё раз.',
+ 'Снова шестёрка. Пространство будто говорит: вглядись. Брось кубик снова.',
+ 'Шестёрка акцентирует внимание и подчёркивает. Следующая клетка несёт для тебя что-то важное — кидай ещё.'
+];
+function openSix(n){
+  var note=document.getElementById('six-note'); if(!note)return;
+  note.innerHTML = (n>=3)
+    ? 'Три шестёрки подряд — особый, сильный акцент. То, что выпадет дальше, точно для тебя. Брось кубик ещё раз.'
+    : SIX_MSGS[Math.floor(Math.random()*SIX_MSGS.length)];
+  note.classList.add('show');
+}
+function clearSix(){var note=document.getElementById('six-note');if(note)note.classList.remove('show');}
 
 /* разыгрывание серии: правило трёх шестёрок + вход + змеи/стрелы по одному кубику */
 function playTurn(series){
@@ -1035,7 +1109,7 @@ function applyDie(v,acsent){
   if(cur===68){finished=true;pushLog('\uD83D\uDD49 Путь завершён — Высшее сознание (68). Теперь интегрируй опыт в жизнь.');}
 }
 
-function afterTurn(){markHere(cur);updateControls();checkTriggers();save();if(pendingBirth){pendingBirth=false;openBirth();}}
+function afterTurn(){markHere(cur);updateControls();checkTriggers();save();if(pendingBirth){pendingBirth=false;openBirth();}if(finished&&!finishShown){finishShown=true;openFinish();}}
 
 /* мягкие триггеры подсказок */
 function nudge(text){
@@ -1064,7 +1138,7 @@ function updateControls(){
 diceEl.addEventListener('click',roll);
 document.getElementById('hist-reset').addEventListener('click',function(){
   if(!finished)return;
-  cur=0;finished=false;throws=0;gunaStuck=0;lastNudge=0;LOG.length=0;
+  cur=0;finished=false;throws=0;gunaStuck=0;lastNudge=0;LOG.length=0;pendingSeries=[];finishShown=false;clearSix();diceCap.textContent='Бросить';
   renderLog();markHere(null);drawDie(6);updateControls();save();
 });
 
@@ -1132,6 +1206,15 @@ function closeBirth(){birthModal.classList.remove('open');}
 (function(){
   document.getElementById('birth-ok').addEventListener('click',closeBirth);
   birthModal.addEventListener('click',function(e){if(e.target===birthModal)closeBirth();});
+})();
+var finishModal=document.getElementById('finish-modal');
+function openFinish(){if(finishModal)finishModal.classList.add('open');}
+function closeFinish(){if(finishModal)finishModal.classList.remove('open');}
+(function(){
+  var fc=document.getElementById('finish-close'), fk=document.getElementById('finish-ok');
+  if(fc)fc.addEventListener('click',closeFinish);
+  if(fk)fk.addEventListener('click',closeFinish);
+  if(finishModal)finishModal.addEventListener('click',function(e){if(e.target===finishModal)closeFinish();});
 })();
 
 document.addEventListener('keydown',function(e){
