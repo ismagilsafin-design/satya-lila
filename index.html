@@ -448,7 +448,7 @@
   /* ===== плавающая метка-мандала (фишка игрока) ===== */
   .mover{position:absolute;left:50%;top:50%;width:46px;height:46px;transform:translate(-50%,-50%);
     pointer-events:none;z-index:7;opacity:0;
-    transition:left .6s cubic-bezier(.45,.05,.25,1),top .6s cubic-bezier(.45,.05,.25,1),opacity .4s ease;}
+    transition:left .3s cubic-bezier(.45,.05,.25,1),top .3s cubic-bezier(.45,.05,.25,1),opacity .4s ease;}
   .mover::after{content:"";position:absolute;inset:-35%;border-radius:50%;
     background:radial-gradient(circle,rgba(194,162,99,.45) 0%,rgba(194,162,99,.16) 45%,transparent 70%);transition:background .3s ease,inset .3s ease;}
   .mover svg{position:absolute;top:0;left:0;width:100%;height:100%;animation:moverSpin 9s linear infinite;filter:drop-shadow(0 1px 3px rgba(120,90,30,.55));}
@@ -1194,7 +1194,7 @@ function playEvents(events){
       pushLog(e.html, e.cell||null, e.more);
       moveMarker(e.n, e.mtype);
       markHere(e.n);
-      setTimeout(step, (e.mtype==='arrow'||e.mtype==='snake')?2700:900);
+      setTimeout(step, (e.mtype==='arrow'||e.mtype==='snake')?2700:600);
     } else { // finish
       finished=true; pushLog(e.html, null);
       setTimeout(step, 420);
