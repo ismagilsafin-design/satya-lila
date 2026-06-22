@@ -280,8 +280,8 @@
   .dice{width:64px;height:64px;border:none;border-radius:15px;padding:11px;cursor:pointer;
     background:linear-gradient(145deg,#fdfaf3,#e7e0d0);
     box-shadow:0 10px 24px -8px rgba(43,58,68,.55),inset 0 1px 0 #fff,inset 0 -2px 4px rgba(43,58,68,.12);
-    display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,1fr);gap:3px;
-    transition:transform .15s ease;}
+    display:block;transition:transform .15s ease;}
+  .dice-face{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,1fr);gap:3px;width:100%;height:100%;}
   .dice:hover{transform:translateY(-2px);}
   .dice:active{transform:scale(.95);}
   .dice .pip{border-radius:50%;}
@@ -294,7 +294,7 @@
 
   /* текущая клетка-фишка */
   .cell.is-here{box-shadow:0 0 0 2.5px var(--gold) inset,0 0 30px -2px var(--gold);z-index:6;background:rgba(255,250,236,.62);}
-  .cell.is-here::before{content:"";position:absolute;top:3px;right:4px;width:20px;height:20px;
+  .cell.is-here::before{content:none;position:absolute;top:3px;right:4px;width:20px;height:20px;
     background:url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2064%2064%27%3E%3Cg%20fill%3D%27none%27%20stroke%3D%27%23b5863a%27%20stroke-width%3D%271.7%27%3E%3Ccircle%20cx%3D%2732%27%20cy%3D%2732%27%20r%3D%2722%27%2F%3E%3Ccircle%20cx%3D%2732%27%20cy%3D%2732%27%20r%3D%2711%27%2F%3E%3Cellipse%20cx%3D%2732%27%20cy%3D%2712%27%20rx%3D%273.4%27%20ry%3D%279%27%20transform%3D%27rotate%280%2032%2032%29%27%2F%3E%3Cellipse%20cx%3D%2732%27%20cy%3D%2712%27%20rx%3D%273.4%27%20ry%3D%279%27%20transform%3D%27rotate%2845%2032%2032%29%27%2F%3E%3Cellipse%20cx%3D%2732%27%20cy%3D%2712%27%20rx%3D%273.4%27%20ry%3D%279%27%20transform%3D%27rotate%2890%2032%2032%29%27%2F%3E%3Cellipse%20cx%3D%2732%27%20cy%3D%2712%27%20rx%3D%273.4%27%20ry%3D%279%27%20transform%3D%27rotate%28135%2032%2032%29%27%2F%3E%3Cellipse%20cx%3D%2732%27%20cy%3D%2712%27%20rx%3D%273.4%27%20ry%3D%279%27%20transform%3D%27rotate%28180%2032%2032%29%27%2F%3E%3Cellipse%20cx%3D%2732%27%20cy%3D%2712%27%20rx%3D%273.4%27%20ry%3D%279%27%20transform%3D%27rotate%28225%2032%2032%29%27%2F%3E%3Cellipse%20cx%3D%2732%27%20cy%3D%2712%27%20rx%3D%273.4%27%20ry%3D%279%27%20transform%3D%27rotate%28270%2032%2032%29%27%2F%3E%3Cellipse%20cx%3D%2732%27%20cy%3D%2712%27%20rx%3D%273.4%27%20ry%3D%279%27%20transform%3D%27rotate%28315%2032%2032%29%27%2F%3E%3C%2Fg%3E%3Ccircle%20cx%3D%2732%27%20cy%3D%278%27%20r%3D%271.5%27%20fill%3D%27%23b5863a%27%20transform%3D%27rotate%2822.5%2032%2032%29%27%2F%3E%3Ccircle%20cx%3D%2732%27%20cy%3D%278%27%20r%3D%271.5%27%20fill%3D%27%23b5863a%27%20transform%3D%27rotate%2867.5%2032%2032%29%27%2F%3E%3Ccircle%20cx%3D%2732%27%20cy%3D%278%27%20r%3D%271.5%27%20fill%3D%27%23b5863a%27%20transform%3D%27rotate%28112.5%2032%2032%29%27%2F%3E%3Ccircle%20cx%3D%2732%27%20cy%3D%278%27%20r%3D%271.5%27%20fill%3D%27%23b5863a%27%20transform%3D%27rotate%28157.5%2032%2032%29%27%2F%3E%3Ccircle%20cx%3D%2732%27%20cy%3D%278%27%20r%3D%271.5%27%20fill%3D%27%23b5863a%27%20transform%3D%27rotate%28202.5%2032%2032%29%27%2F%3E%3Ccircle%20cx%3D%2732%27%20cy%3D%278%27%20r%3D%271.5%27%20fill%3D%27%23b5863a%27%20transform%3D%27rotate%28247.5%2032%2032%29%27%2F%3E%3Ccircle%20cx%3D%2732%27%20cy%3D%278%27%20r%3D%271.5%27%20fill%3D%27%23b5863a%27%20transform%3D%27rotate%28292.5%2032%2032%29%27%2F%3E%3Ccircle%20cx%3D%2732%27%20cy%3D%278%27%20r%3D%271.5%27%20fill%3D%27%23b5863a%27%20transform%3D%27rotate%28337.5%2032%2032%29%27%2F%3E%3Ccircle%20cx%3D%2732%27%20cy%3D%2732%27%20r%3D%274%27%20fill%3D%27%23b5863a%27%2F%3E%3C%2Fsvg%3E") center/contain no-repeat;
     filter:drop-shadow(0 0 4px rgba(194,162,99,.95));
     animation:hereSpin 9s linear infinite, herePulse 2.4s ease-in-out infinite;}
@@ -443,6 +443,37 @@
     .intro-btn{font-size:14px;padding:8px 13px;left:12px;top:12px;gap:7px;}
     .masthead{padding-top:54px;}
   }
+  .modal-card .intro-list{margin:8px 0 8px;padding-left:20px;}
+  .modal-card .intro-list li{margin:6px 0;font-size:14.5px;line-height:1.5;color:#3c4a52;}
+  /* ===== плавающая метка-мандала (фишка игрока) ===== */
+  .mover{position:absolute;left:50%;top:50%;width:6%;aspect-ratio:1;transform:translate(-50%,-50%);
+    pointer-events:none;z-index:7;opacity:0;display:flex;align-items:center;justify-content:center;
+    transition:left 1s cubic-bezier(.45,.05,.25,1),top 1s cubic-bezier(.45,.05,.25,1),opacity .35s ease;}
+  .mover::after{content:"";position:absolute;inset:-35%;border-radius:50%;
+    background:radial-gradient(circle,rgba(194,162,99,.45) 0%,rgba(194,162,99,.16) 45%,transparent 70%);transition:background .3s ease,inset .3s ease;}
+  .mover svg{position:relative;width:100%;height:100%;animation:moverSpin 9s linear infinite;filter:drop-shadow(0 1px 3px rgba(120,90,30,.55));}
+  .mover.show{opacity:1;}
+  .mover.fly{transition:left 2.4s cubic-bezier(.38,.06,.2,1),top 2.4s cubic-bezier(.38,.06,.2,1),opacity .4s ease;z-index:8;}
+  .mover.fly::after{inset:-55%;background:radial-gradient(circle,rgba(194,162,99,.7) 0%,rgba(194,162,99,.28) 50%,transparent 72%);}
+  @keyframes moverSpin{to{transform:rotate(360deg);}}
+
+  /* ===== подсказка и плашка "подробнее" в истории ===== */
+  .hist-hint{margin:2px 0 12px;font-size:12.5px;line-height:1.5;color:var(--ink-soft);
+    border-left:2px solid var(--gold);padding:7px 12px;background:rgba(194,162,99,.07);border-radius:0 8px 8px 0;}
+  .logmore{display:inline-block;margin-left:8px;font-size:11px;letter-spacing:.03em;color:#9a7b34;
+    border:1px solid rgba(194,162,99,.5);border-radius:99px;padding:1px 9px;vertical-align:middle;white-space:nowrap;}
+  .hist-item.clk:hover .logmore{background:rgba(194,162,99,.16);}
+  @media (prefers-reduced-motion:reduce){.mover{transition:opacity .2s ease;}.mover svg{animation:none;}}
+  /* ===== оглавление-подменю в карточке "Начни здесь" ===== */
+  .intro-toc{margin:4px 0 20px;padding:14px 16px;background:rgba(47,90,84,.05);border:1px solid var(--line-soft);border-radius:12px;}
+  .intro-toc-title{font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:8px;}
+  .toc-link{display:block;width:100%;text-align:left;background:none;border:none;cursor:pointer;font-family:inherit;
+    font-size:14.5px;color:var(--teal-deep);padding:8px 4px;border-bottom:1px solid var(--line-soft);
+    transition:color .15s ease,padding-left .15s ease;}
+  .toc-link:last-child{border-bottom:none;}
+  .toc-link::before{content:"\203a";color:var(--gold);margin-right:9px;font-weight:600;}
+  .toc-link:hover{color:#1d6b62;padding-left:6px;}
+  .modal-card p strong,.modal-card li strong,.lila-rule strong{color:var(--teal-deep);font-weight:600;}
 </style>
 </head>
 <body>
@@ -469,11 +500,13 @@
       <div class="board-art"></div>
       <svg class="overlay" viewBox="0 0 900 506" preserveAspectRatio="none" aria-hidden="true"></svg>
       <div class="grid" id="grid" role="list"></div>
+      <div class="mover" id="mover" aria-hidden="true"><svg viewBox="0 0 64 64"><g fill="none" stroke="#c2a263" stroke-width="2.2"><circle cx="32" cy="32" r="22"/><circle cx="32" cy="32" r="11"/><ellipse cx="32" cy="12" rx="3.6" ry="9.5" transform="rotate(0 32 32)"/><ellipse cx="32" cy="12" rx="3.6" ry="9.5" transform="rotate(45 32 32)"/><ellipse cx="32" cy="12" rx="3.6" ry="9.5" transform="rotate(90 32 32)"/><ellipse cx="32" cy="12" rx="3.6" ry="9.5" transform="rotate(135 32 32)"/><ellipse cx="32" cy="12" rx="3.6" ry="9.5" transform="rotate(180 32 32)"/><ellipse cx="32" cy="12" rx="3.6" ry="9.5" transform="rotate(225 32 32)"/><ellipse cx="32" cy="12" rx="3.6" ry="9.5" transform="rotate(270 32 32)"/><ellipse cx="32" cy="12" rx="3.6" ry="9.5" transform="rotate(315 32 32)"/></g><circle cx="32" cy="32" r="4.5" fill="#c2a263"/></svg></div>
     </div>
   </main>
 
   <section class="history">
     <h3>История пути</h3>
+    <p class="hist-hint">Каждый ход записывается ниже. Нажми на запись со значком «подробнее ›», чтобы заново открыть клетку и её послание.</p>
     <div class="history-row">
       <div class="history-main">
         <ul class="hist-list" id="hist-list"></ul>
@@ -552,17 +585,56 @@
   <div class="modal" id="intro-modal">
     <div class="modal-card intro">
       <button class="modal-x" id="intro-close" aria-label="Закрыть">✕</button>
-      <h3>Лила · с чего начать</h3>
+      <h3>Начни здесь</h3>
       <div class="fdiv"><span>❖</span></div>
-      <p>Лила — игра самопознания. Это способ услышать свою душу, получить ответы на свой запрос и подсветить путь, которому хорошо бы следовать. Суть не в том, чтобы выучить клетки, а в том, чтобы изучать вселенские законы и познавать себя.</p>
-      <h4>Перед началом</h4>
-      <p>Создай себе атмосферу: можно зажечь свечу, включить музыку — всё, что помогает настроиться на себя. Обратись к тем высшим силам, в которые ты веришь, с благодарностью за эту возможность и за помощь в игре. Затем мысленно (или вслух) назови свой запрос — то, в чём хочешь получить подсказку. Можно играть и без запроса, просто наблюдая, на что игра обратит твоё внимание.</p>
-      <h4>Как играть</h4>
-      <p>Чтобы войти в игру, брось кубик — нужна шестёрка. Дальше двигайся по полю, читай послания клеток, отвечай себе на вопросы. Шестёрка всегда означает «брось ещё раз». Нажимай на любую клетку, чтобы услышать её смысл.</p>
-      <div class="lila-rule">Однажды начатая игра должна быть закончена. Игра завершается только на 68 клетке «Высшее сознание». Если нет намерения закончить — лучше не начинать.</div>
+      <nav class="intro-toc" aria-label="Содержание">
+        <div class="intro-toc-title">В этой памятке</div>
+        <button type="button" class="toc-link" data-go="top">Приветствие</button>
+        <button type="button" class="toc-link" data-go="s-what">Что такое игра Лила</button>
+        <button type="button" class="toc-link" data-go="s-how">Как проходит игра</button>
+        <button type="button" class="toc-link" data-go="s-setup">Настройка перед игрой</button>
+        <button type="button" class="toc-link" data-go="s-request">Как сформулировать запрос</button>
+        <button type="button" class="toc-link" data-go="s-cell">Если не понимаешь клетку</button>
+        <button type="button" class="toc-link" data-go="s-repeat">Повторяющиеся клетки</button>
+        <button type="button" class="toc-link" data-go="s-rule">Правило завершения</button>
+        <button type="button" class="toc-link" data-go="s-guide">Помощь проводника</button>
+      </nav>
+
+      <p>Приветствую тебя, душа. Возможно, прямо сейчас в твоей жизни <strong>есть вопрос, на который ты ищешь ответ</strong>. Не важно, из какой он сферы: деньги, отношения, предназначение, выбор, состояние, повторяющийся сценарий, мечта, к которой хочешь прийти, или цель, в которой хочется утвердиться и понять, каким путём к ней двигаться.</p>
+      <p>В Лилу приходят не только тогда, когда всё плохо. В неё приходят, когда хочется <strong>увидеть себя честнее</strong>, понять, почему что-то не получается, увидеть следующий шаг, найти путь к желаемому, утвердиться в своих планах — и <strong>услышать то, что душа, возможно, уже давно знает</strong>.</p>
+
+      <h4 id="s-what">Что такое игра Лила</h4>
+      <p>Лила — <strong>древний инструмент самопознания</strong>. Её называют игрой, но по сути это гораздо больше. Это <strong>зеркало, которое показывает жизнь такой, какая она есть</strong>, — без красивых оправданий и самообмана. Поле отражает, какие энергии сейчас включены в твоей жизни, какие блоки мешают двигаться, какие уроки ты проходишь и куда может вести твой путь дальше. <strong>Лилу невозможно обмануть</strong>: она показывает не то, что мы хотим о себе рассказать, а то, что есть.</p>
+      <p>Три важных момента перед игрой:</p>
+      <ul class="intro-list">
+        <li><strong>Цель игры — не выиграть</strong>, а осознать и зафиксировать для себя подсказки. Каждая клетка, на которую ты приходишь, — твоё отражение и послание для тебя.</li>
+        <li><strong>Играй в своём темпе.</strong> Не важно, сколько длится игра — несколько минут или несколько дней; можно делать по несколько бросков в день.</li>
+        <li><strong>После игры — действуй.</strong> Начинай воплощать в жизни то, что пришло: так ты заземляешь запущенные на игре энергии.</li>
+      </ul>
+
+      <h4 id="s-how">Как проходит игра</h4>
+      <p><strong>Сформулируй запрос. Бросай кубик. Следуй по полю.</strong> Система сама покажет клетку, даст трактовку и направление для размышления. Тебе не нужно знать правила, изучать поле или запоминать значения клеток — платформа проведёт тебя шаг за шагом.</p>
+      <p>Игра работает глубже, когда ты не просто читаешь трактовки, а <strong>наблюдаешь за собой</strong>. <strong>Держи рядом блокнот</strong> и записывай всё, что приходит: мысли, ассоциации, воспоминания, чувства, реакции в теле, сопротивление, неожиданные инсайты, повторяющиеся клетки, вопросы внутри.</p>
+      <p>На каждой клетке остановись, прочитай трактовку и спроси себя: «О чём это сейчас для меня? Как это проявлено в моей жизни? Что я здесь чувствую?» И <strong>самый главный вопрос: «Какие действия я могу сделать?»</strong> Не пытайся понять каждую клетку идеально — иногда смысл раскрывается позже, а весь путь складывается в ясную картину только в конце. Если записывать, после игры у тебя останется <strong>личный маршрут — пошаговая карта твоего запроса</strong>.</p>
+
+      <h4 id="s-setup">Настройка перед игрой</h4>
+      <p>Лила не случайно считается <strong>божественной игрой</strong> — это инструмент общения с Высшими силами. <strong>Входи в неё из уважения, честности и готовности увидеть правду.</strong> Перед началом остановись на минуту, сделай несколько спокойных вдохов, почувствуй тело, переведи внимание в сердце и обратись к тем Высшим силам, в которые веришь. Можно своими словами, например:</p>
+      <div class="finish-quote">«Прошу провести меня по игре самым наилучшим и бережным образом. Помочь мне увидеть то, что мне важно увидеть сейчас. Услышать ответ. Понять свой путь. И принять то, что будет показано.»</div>
+
+      <h4 id="s-request">Как сформулировать запрос</h4>
+      <p>Единого правила нет — можно играть даже без запроса, если игра тебя пустит. Главное: <strong>игра начинается только тогда, когда на кубике выпадает первая шестёрка</strong>. Значит, ты услышал свою душу — и вот он, честный запрос. Если шестёрки всё нет — это знак, что, возможно, <strong>сейчас это не самый приоритетный для тебя запрос</strong>, либо у него есть ещё важные оттенки, либо есть что-то ещё, на что душа хочет обратить твоё внимание.</p>
+
+      <h4 id="s-cell">Если не понимаешь клетку</h4>
+      <p><strong>Это нормально.</strong> Не каждую клетку нужно понимать сразу. Не выжимай из себя «правильный» ответ — просто запиши клетку, трактовку и первые ощущения. Иногда смысл раскрывается через несколько ходов, часов или даже дней, когда в жизни происходит ситуация и ты вдруг понимаешь: «А вот о чём была эта клетка». Лила показывает путь, и часто он становится понятным <strong>целиком только в конце</strong>.</p>
+
+      <h4 id="s-repeat">Повторяющиеся клетки</h4>
+      <p>Если ты несколько раз попадаешь на одну и ту же клетку — <strong>обрати на это особое внимание</strong>. Скорее всего, там есть смысл, который ты пока не до конца увидел. Это не значит, что ты «плохо играешь»; это указание: <strong>посмотри глубже, не убегай</strong>, ты что-то пропускаешь, этот урок важен — возможно, здесь ключ к запросу. Запиши повторяющиеся клетки отдельно и в конце игры вернись к ним.</p>
+
+      <div class="lila-rule" id="s-rule"><strong>Однажды начатая игра должна быть закончена.</strong> Игра завершается только на 68 клетке «Высшее сознание». Если нет намерения закончить — лучше не начинать.</div>
+
       <div class="contacts">
-        <h4>Нужна помощь?</h4>
-        <p class="muted">Нужна помощь в игре или хочешь пройти её с проводником — <a href="https://t.me/Lilakzn" target="_blank" rel="noopener">напиши Лиле в личку</a>.</p>
+        <h4 id="s-guide">Если нужна помощь проводника</h4>
+        <p class="muted">Самостоятельная игра может дать очень много. Но если хочешь <strong>пойти глубже и получить живое сопровождение</strong> — проводник поможет увидеть связи, задать точные вопросы, глубже раскрыть клетки и собрать весь путь в понятную картину. <a href="https://t.me/Lilakzn" target="_blank" rel="noopener">Напиши Лиле в личку</a>.</p>
       </div>
       <button class="big-btn" id="intro-start" type="button">Начать игру</button>
     </div>
@@ -1008,7 +1080,7 @@ const diceEl=document.getElementById('dice');
 const diceCap=document.getElementById('dice-cap');
 const logEl=document.getElementById('hist-list');
 const PIPS={1:[4],2:[0,8],3:[0,4,8],4:[0,2,6,8],5:[0,2,4,6,8],6:[0,2,3,5,6,8]};
-function drawDie(v){let s='';for(let i=0;i<9;i++)s+='<span class="pip'+(PIPS[v].indexOf(i)>=0?' on':'')+'"></span>';diceEl.innerHTML=s;}
+function drawDie(v){let s='';for(let i=0;i<9;i++)s+='<span class="pip'+(PIPS[v].indexOf(i)>=0?' on':'')+'"></span>';diceEl.innerHTML='<span class="dice-face">'+s+'</span>';}
 drawDie(6);
 
 /* состояние + сохранение между сессиями */
@@ -1020,10 +1092,10 @@ function save(){try{localStorage.setItem(STORE,JSON.stringify({cur,finished,thro
 function load(){try{const s=JSON.parse(localStorage.getItem(STORE));if(s){cur=s.cur||0;finished=!!s.finished;throws=s.throws||0;gunaStuck=s.gunaStuck||0;lastNudge=s.lastNudge||0;pendingSeries=s.pendingSeries||[];finishShown=!!s.finished;LOG=Array.isArray(s.log)?s.log:[];}}catch(e){}}
 
 function landName(n){return n+' · '+CELLS[n].ru;}
-function pushLog(html,cell){LOG.unshift({html:html,cell:cell||null});if(LOG.length>220)LOG.length=220;renderLog();}
+function pushLog(html,cell,more){LOG.unshift({html:html,cell:cell||null,more:!!more});if(LOG.length>220)LOG.length=220;renderLog();}
 function renderLog(){
   if(!LOG.length){logEl.innerHTML='<li class="hist-empty">Брось кубик, чтобы начать путь…</li>';return;}
-  logEl.innerHTML=LOG.map(function(e){return '<li class="hist-item'+(e.cell?' clk':'')+'"'+(e.cell?' data-cell="'+e.cell+'"':'')+'>'+e.html+'</li>';}).join('');
+  logEl.innerHTML=LOG.map(function(e){return '<li class="hist-item'+(e.cell?' clk':'')+'"'+(e.cell?' data-cell="'+e.cell+'"':'')+'>'+e.html+((e.more&&e.cell)?'<span class="logmore">подробнее ›</span>':'')+'</li>';}).join('');
   logEl.querySelectorAll('[data-cell]').forEach(function(li){li.addEventListener('click',function(){openCell(+li.getAttribute('data-cell'));});});
 }
 function markHere(n){
@@ -1086,16 +1158,82 @@ function playTurn(series){
     pushLog('Чтобы войти в игру, нужна <b>6</b>. Тот ли это запрос, в котором ты сейчас? Шестёрка подтвердит, что он верный.');
     afterTurn();return;
   }
-  if(cur===0){pendingBirth=true;pushLog('\u2726 Рождение в игре');}
+  var events=[];
+  if(cur===0){pendingBirth=true;events.push({kind:'log',html:'✦ Рождение в игре'});}
   var moves=[], acsent=false;
-  if(count6===3){moves=[final];acsent=true;pushLog('\uD83D\uDD25 Три шестёрки сгорают — делается акцент на клетку после них');}
+  if(count6===3){moves=[final];acsent=true;events.push({kind:'log',html:'🔥 Три шестёрки сгорают — делается акцент на клетку после них'});}
   else{for(var i=0;i<count6;i++)moves.push(6);moves.push(final);}
+  var c=cur;
   for(var k=0;k<moves.length;k++){
-    applyDie(moves[k], acsent && k===moves.length-1);
-    if(finished)break;
+    var v=moves[k], isLast=(k===moves.length-1), np=c+v;
+    if(np>72){events.push({kind:'log',html:'• '+v+' не сыграть отсюда — остаёшься на '+landName(c),cell:c});continue;}
+    c=np;
+    events.push({kind:'move',n:c,mtype:'step',cell:c,more:true,html:((acsent&&isLast)?'📌 <b>Акцент:</b> ':'→ ')+landName(c)});
+    if(ARROWS[c]){var ua=ARROWS[c];events.push({kind:'move',n:ua,mtype:'arrow',cell:ua,html:'↑ Стрела: '+c+' → '+landName(ua)});c=ua;}
+    else if(SNAKES[c]){var sd=SNAKES[c];events.push({kind:'move',n:sd,mtype:'snake',cell:sd,html:'↓ Змея: '+c+' → '+landName(sd)});c=sd;}
+    if(c===68){events.push({kind:'finish',html:'🕉 Путь завершён — Высшее сознание (68). Теперь интегрируй опыт в жизнь.'});break;}
   }
-  afterTurn();
+  playEvents(events);
 }
+
+/* проигрывание хода с паузами: метка движется ~раз в 0.5с, по стреле/змее — перелёт */
+function playEvents(events){
+  rolling=true;
+  var idx=0;
+  (function step(){
+    if(idx>=events.length){
+      var mm=document.getElementById('mover'); if(mm)mm.classList.remove('fly');
+      rolling=false; afterTurn(); return;
+    }
+    var e=events[idx++];
+    if(e.kind==='log'){
+      pushLog(e.html, e.cell||null);
+      setTimeout(step, 480);
+    } else if(e.kind==='move'){
+      cur=e.n;
+      pushLog(e.html, e.cell||null, e.more);
+      moveMarker(e.n, e.mtype);
+      markHere(e.n);
+      setTimeout(step, (e.mtype==='arrow'||e.mtype==='snake')?2700:1200);
+    } else { // finish
+      finished=true; pushLog(e.html, null);
+      setTimeout(step, 420);
+    }
+  })();
+}
+
+function moverPos(n){var p=pos(n);return {l:(p.col+0.5)/9*100, t:(p.rowTop+0.5)/8*100};}
+function moveMarker(n,mtype){
+  var m=document.getElementById('mover'); if(!m)return;
+  var q=moverPos(n);
+  if(!m.classList.contains('show')){
+    m.style.transition='none'; m.style.left=q.l+'%'; m.style.top=q.t+'%';
+    void m.offsetWidth; m.style.transition=''; m.classList.remove('fly'); m.classList.add('show'); return;
+  }
+  if(mtype==='arrow'||mtype==='snake') m.classList.add('fly'); else m.classList.remove('fly');
+  m.style.left=q.l+'%'; m.style.top=q.t+'%';
+}
+function showMoverAt(n){
+  var m=document.getElementById('mover'); if(!m)return;
+  if(!n){m.classList.remove('show','fly');return;}
+  var q=moverPos(n);
+  m.style.transition='none'; m.style.left=q.l+'%'; m.style.top=q.t+'%';
+  void m.offsetWidth; m.style.transition=''; m.classList.add('show');
+}
+function hideMover(){var m=document.getElementById('mover'); if(m)m.classList.remove('show','fly');}
+(function(){
+  var nav=document.querySelector('#intro-modal .intro-toc');
+  if(!nav)return;
+  var card=document.querySelector('#intro-modal .modal-card');
+  nav.addEventListener('click',function(e){
+    var btn=e.target.closest('.toc-link'); if(!btn||!card)return;
+    var go=btn.getAttribute('data-go');
+    if(go==='top'){card.scrollTo({top:0,behavior:'smooth'});return;}
+    var tgt=document.getElementById(go);
+    if(tgt){card.scrollTo({top:Math.max(0,tgt.offsetTop-14),behavior:'smooth'});}
+  });
+})();
+
 
 /* один шаг кубика: перебор>72 — стоишь; иначе ход + одна змея/стрела */
 function applyDie(v,acsent){
@@ -1139,7 +1277,7 @@ diceEl.addEventListener('click',roll);
 document.getElementById('hist-reset').addEventListener('click',function(){
   if(!finished)return;
   cur=0;finished=false;throws=0;gunaStuck=0;lastNudge=0;LOG.length=0;pendingSeries=[];finishShown=false;clearSix();diceCap.textContent='Бросить';
-  renderLog();markHere(null);drawDie(6);updateControls();save();
+  renderLog();markHere(null);hideMover();drawDie(6);updateControls();save();
 });
 
 /* ===== КАРТА ПО КЛЕТКЕ + СЛУЧАЙНАЯ ===== */
@@ -1222,7 +1360,7 @@ document.addEventListener('keydown',function(e){
 });
 
 /* ===== старт: восстановить сохранённое состояние ===== */
-load();renderLog();markHere(cur);updateControls();
+load();renderLog();markHere(cur);showMoverAt(cur);updateControls();
 if(!localStorage.getItem('satya_lila_seen_intro')){
   openIntro();try{localStorage.setItem('satya_lila_seen_intro','1');}catch(e){}
 }
