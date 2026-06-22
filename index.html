@@ -446,12 +446,12 @@
   .modal-card .intro-list{margin:8px 0 8px;padding-left:20px;}
   .modal-card .intro-list li{margin:6px 0;font-size:14.5px;line-height:1.5;color:#3c4a52;}
   /* ===== плавающая метка-мандала (фишка игрока) ===== */
-  .mover{position:absolute;left:50%;top:50%;width:6%;aspect-ratio:1;transform:translate(-50%,-50%);
-    pointer-events:none;z-index:7;opacity:0;display:flex;align-items:center;justify-content:center;
-    transition:left 1s cubic-bezier(.45,.05,.25,1),top 1s cubic-bezier(.45,.05,.25,1),opacity .35s ease;}
+  .mover{position:absolute;left:50%;top:50%;width:46px;height:46px;transform:translate(-50%,-50%);
+    pointer-events:none;z-index:7;opacity:0;
+    transition:left 3.4s cubic-bezier(.45,.05,.25,1),top 3.4s cubic-bezier(.45,.05,.25,1),opacity .4s ease;}
   .mover::after{content:"";position:absolute;inset:-35%;border-radius:50%;
     background:radial-gradient(circle,rgba(194,162,99,.45) 0%,rgba(194,162,99,.16) 45%,transparent 70%);transition:background .3s ease,inset .3s ease;}
-  .mover svg{position:relative;width:100%;height:100%;animation:moverSpin 9s linear infinite;filter:drop-shadow(0 1px 3px rgba(120,90,30,.55));}
+  .mover svg{position:absolute;top:0;left:0;width:100%;height:100%;animation:moverSpin 9s linear infinite;filter:drop-shadow(0 1px 3px rgba(120,90,30,.55));}
   .mover.show{opacity:1;}
   .mover.fly{transition:left 2.4s cubic-bezier(.38,.06,.2,1),top 2.4s cubic-bezier(.38,.06,.2,1),opacity .4s ease;z-index:8;}
   .mover.fly::after{inset:-55%;background:radial-gradient(circle,rgba(194,162,99,.7) 0%,rgba(194,162,99,.28) 50%,transparent 72%);}
@@ -1194,7 +1194,7 @@ function playEvents(events){
       pushLog(e.html, e.cell||null, e.more);
       moveMarker(e.n, e.mtype);
       markHere(e.n);
-      setTimeout(step, (e.mtype==='arrow'||e.mtype==='snake')?2700:1200);
+      setTimeout(step, (e.mtype==='arrow'||e.mtype==='snake')?2700:3800);
     } else { // finish
       finished=true; pushLog(e.html, null);
       setTimeout(step, 420);
@@ -1203,8 +1203,10 @@ function playEvents(events){
 }
 
 function moverPos(n){var p=pos(n);return {l:(p.col+0.5)/9*100, t:(p.rowTop+0.5)/8*100};}
+function sizeMover(){var m=document.getElementById("mover"),bf=document.querySelector(".board-frame");if(!m||!bf)return;var s=Math.max(18,Math.round(bf.clientWidth*0.064));m.style.width=s+"px";m.style.height=s+"px";}
 function moveMarker(n,mtype){
   var m=document.getElementById('mover'); if(!m)return;
+  sizeMover();
   var q=moverPos(n);
   if(!m.classList.contains('show')){
     m.style.transition='none'; m.style.left=q.l+'%'; m.style.top=q.t+'%';
@@ -1216,6 +1218,7 @@ function moveMarker(n,mtype){
 function showMoverAt(n){
   var m=document.getElementById('mover'); if(!m)return;
   if(!n){m.classList.remove('show','fly');return;}
+  sizeMover();
   var q=moverPos(n);
   m.style.transition='none'; m.style.left=q.l+'%'; m.style.top=q.t+'%';
   void m.offsetWidth; m.style.transition=''; m.classList.add('show');
@@ -1360,7 +1363,7 @@ document.addEventListener('keydown',function(e){
 });
 
 /* ===== старт: восстановить сохранённое состояние ===== */
-load();renderLog();markHere(cur);showMoverAt(cur);updateControls();
+load();renderLog();markHere(cur);sizeMover();showMoverAt(cur);window.addEventListener('resize',sizeMover);updateControls();
 if(!localStorage.getItem('satya_lila_seen_intro')){
   openIntro();try{localStorage.setItem('satya_lila_seen_intro','1');}catch(e){}
 }
